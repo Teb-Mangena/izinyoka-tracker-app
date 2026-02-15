@@ -4,14 +4,16 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start":"node src/server.js",
-    "dev":"node --watch src/server.js"
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
   },
   "keywords": [],
   "author": "Mangena Tebatso",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@clerk/express": "^1.7.70",
+    "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "mongoose": "^9.2.1"
