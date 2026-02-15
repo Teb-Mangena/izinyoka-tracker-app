@@ -16,6 +16,7 @@ export const protectAuth = [
       }
 
       req.user = user;
+      req.userId = user._id.toString();
 
       next();
 
