@@ -22,26 +22,28 @@ interface ColorsTypes {
 }
 
 export const Colors: ColorsTypes = {
-  primary: "#3399CC", 
-  warning: "#ef4444", 
+  // A deeper, more vibrant Eskom Blue
+  primary: "#005DAA", 
+  // Safety Yellow/Amber for that "Warning: Stage 6" look
+  warning: "#FACC15", 
 
   dark: {
-    text: "#cbd5e1",
-    title: "#f8fafc",
-    background: "#0f172a", 
-    navBackground: "#1e293b", 
-    iconColor: "#94a3b8", 
-    iconColorFocused: "#a1a1aa", 
-    uiBackground: "#1e293b", 
+    text: "#94A3B8",        // Muted Slate
+    title: "#F1F5F9",       // Near White
+    background: "#0B0E14",  // "Midnight Coal" - Deepest Charcoal
+    navBackground: "#161E2D", // Deep Navy Grey
+    iconColor: "#64748B", 
+    iconColorFocused: "#005DAA", 
+    uiBackground: "#1E293B", // Elevated Surface
   },
 
   light: {
-    text: "#475569", 
-    title: "#0f172a", 
-    background: "#f1f5f9", 
-    navBackground: "#ffffff", 
-    iconColor: "#94a3b8", 
-    iconColorFocused: "#6366f1", 
-    uiBackground: "#ffffff", 
+    text: "#334155", 
+    title: "#0F172A", 
+    background: "#F8FAFC",  // Clean "Cool" White
+    navBackground: "#FFFFFF", 
+    iconColor: "#94A3B8", 
+    iconColorFocused: "#005DAA", 
+    uiBackground: "#FFFFFF", 
   },
 };

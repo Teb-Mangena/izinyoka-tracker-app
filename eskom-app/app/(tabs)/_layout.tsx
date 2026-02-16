@@ -27,7 +27,7 @@ const TabLayout = () => {
           title: "Uploads",
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
-              name={focused ? "reader" : "reader-outline"}
+              name={focused ? "home" : "home-outline"}
               size={size}
               color={color}
             />
