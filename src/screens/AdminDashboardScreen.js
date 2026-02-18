@@ -10,8 +10,8 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useTheme } from '../context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '../context/ThemeContext';
 
 export default function AdminDashboardScreen() {
   const [overview, setOverview] = useState(null);
@@ -33,12 +33,12 @@ export default function AdminDashboardScreen() {
     }, 1000);
   }, []);
 
-  if (loading) return <ActivityIndicator size="large" />;
+  if (loading) return <ActivityIndicator size="large" color={colors.primary} />;
 
   return (
     <ScrollView
       style={[styles.container, { backgroundColor: colors.background }]}
-      contentContainerStyle={{ paddingBottom: 80 }}>
+      contentContainerStyle={{ paddingBottom: 100 }}>
       {/* Header */}
       <View style={styles.headerRow}>
         <Icon name="chart-bar" size={28} color={colors.primary} />
@@ -52,21 +52,114 @@ export default function AdminDashboardScreen() {
       </View>
 
       {/* Stats Overview */}
-      {/* ... existing content ... */}
+      <View style={[styles.card, { backgroundColor: colors.card }]}>
+        <Text style={[styles.cardTitle, { color: colors.primary }]}>
+          System Overview
+        </Text>
+        <View style={styles.statsRow}>
+          <View style={styles.statBox}>
+            <Text style={[styles.statValue, { color: colors.primary }]}>
+              {overview.total}
+            </Text>
+            <Text style={[styles.statLabel, { color: colors.text }]}>
+              Total Incidents
+            </Text>
+          </View>
+          <View style={styles.statBox}>
+            <Text style={[styles.statValue, { color: colors.eskomGreen }]}>
+              {overview.resolved}
+            </Text>
+            <Text style={[styles.statLabel, { color: colors.text }]}>
+              Resolved
+            </Text>
+          </View>
+          <View style={styles.statBox}>
+            <Text style={[styles.statValue, { color: colors.eskomRed }]}>
+              {overview.false_alarms}
+            </Text>
+            <Text style={[styles.statLabel, { color: colors.text }]}>
+              False Alarms
+            </Text>
+          </View>
+          <View style={styles.statBox}>
+            <Text style={[styles.statValue, { color: colors.eskomOrange }]}>
+              {overview.pending}
+            </Text>
+            <Text style={[styles.statLabel, { color: colors.text }]}>
+              Pending
+            </Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Incident Trends */}
+      <View style={[styles.card, { backgroundColor: colors.card }]}>
+        <Text style={[styles.cardTitle, { color: colors.primary }]}>
+          Incident Trends (last 14 days)
+        </Text>
+        <FlatList
+          data={trends}
+          keyExtractor={(item) => item.day}
+          renderItem={({ item }) => (
+            <Text style={{ color: colors.text }}>
+              {item.day}: {item.count} incidents
+            </Text>
+          )}
+        />
+      </View>
+
+      {/* Chart Placeholder */}
+      <View style={[styles.card, { backgroundColor: colors.card }]}>
+        <Text style={[styles.cardTitle, { color: colors.primary }]}>
+          Incident Trends Chart
+        </Text>
+        <View
+          style={[
+            styles.chartPlaceholder,
+            { backgroundColor: colors.background },
+          ]}>
+          <Text style={{ color: colors.primary }}>Chart placeholder</Text>
+        </View>
+      </View>
+
+      {/* User Management */}
+      <View style={[styles.card, { backgroundColor: colors.card }]}>
+        <Text style={[styles.cardTitle, { color: colors.primary }]}>
+          User Management
+        </Text>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: colors.primary }]}>
+          <Text style={styles.buttonText}>View Field Workers</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: colors.primary }]}>
+          <Text style={styles.buttonText}>Manage Citizens</Text>
+        </TouchableOpacity>
+      </View>
 
       {/* Export Reports */}
       <View style={[styles.card, { backgroundColor: colors.card }]}>
         <Text style={[styles.cardTitle, { color: colors.primary }]}>
           Reports
         </Text>
-        <TouchableOpacity style={[styles.button, { backgroundColor: 'green' }]}>
-          <Text style={styles.buttonText}>Export Analytics</Text>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: colors.eskomGreen }]}>
+          <Text
+            style={[
+              styles.title,
+              { fontSize: width < 360 ? 14 : 16, color: colors.primary },
+            ]}>
+            Export Report
+          </Text>
         </TouchableOpacity>
       </View>
 
-      {/* Logout / Switch Role */}
+      {/* Switch Role Button */}
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: colors.primary }]}
+        style={[
+          styles.button,
+          { backgroundColor: colors.primary, marginTop: 20 },
+        ]}
         onPress={() => navigation.replace('RoleToggle')}>
         <Text style={styles.buttonText}>Switch Role</Text>
       </TouchableOpacity>
@@ -87,11 +180,22 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   cardTitle: { fontWeight: 'bold', marginBottom: 8 },
+  statsRow: { flexDirection: 'row', justifyContent: 'space-between' },
+  statBox: { flex: 1, alignItems: 'center' },
+  statValue: { fontWeight: 'bold', fontSize: 18 },
+  statLabel: { fontSize: 12 },
+  chartPlaceholder: {
+    height: 120,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   button: {
+    marginTop: 12,
     paddingVertical: 10,
     borderRadius: 8,
     alignItems: 'center',
-    marginBottom: 8,
   },
-  buttonText: { color: '#fff', fontWeight: 'bold' },
+  buttonText: { color: '#fff', fontWeight: 'bold', fontSize: 12 },
+  title: { fontWeight: 'bold', marginBottom: 8 },
 });
